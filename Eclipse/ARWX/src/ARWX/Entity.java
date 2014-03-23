@@ -3,13 +3,17 @@ package ARWX;
 import java.util.ArrayList;
 
 public abstract class Entity {
+	private static double GravConst = .0000000000667;
+	
 	private Coordinates location;
 	public Bounds boundingBox;
 	private int rotation;
-	private int mass, radius;
+	public long mass;
+	public int radius;
+	public int gravityWell; //Radius squared of range of gravity
 	private ArrayList<Sprite> sprites;
 	
-	public Entity(Coordinates location, int rotation, int mass, int radius, ArrayList<Sprite> sprites)
+	public Entity(Coordinates location, int rotation, long mass, int radius, ArrayList<Sprite> sprites)
 	{
 		this.location = location;
 		this.rotation = rotation;
@@ -17,13 +21,14 @@ public abstract class Entity {
 		this.radius = radius;
 		this.sprites = sprites;
 		this.boundingBox = new Bounds(location, radius);
+		this.gravityWell = (int) (GravConst * mass); //round to int for distance where A = 1;
 	}
 	
 	public void draw()
 	{
 		for (Sprite item:sprites)
 		{
-			item.draw();
+			item.draw(location, rotation, radius);
 		}
 	}
 }
