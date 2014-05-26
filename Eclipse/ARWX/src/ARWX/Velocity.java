@@ -31,4 +31,6 @@ public class Velocity extends Coordinates {
 		other.y1 += y;
 		other.y2 += y;
 	}
+	
+
 }
